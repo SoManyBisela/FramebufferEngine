@@ -220,8 +220,12 @@ void FramebufferWriter::background(uint8_t r,uint8_t g,uint8_t b){
 	_color.r = r;
 	_color.g = g;
 	_color.b = b;
-	for(int i = 0; i < size / sizeof(pixel); i++){
-		memcpy(nextBuffer + i, &_color, sizeof(pixel));
+	memcpy(nextBuffer, &_color, sizeof(pixel));
+	size_t copiedUntil = sizeof(pixel);
+	while(copiedUntil < size){
+		size_t copySize = (size - copiedUntil) * (size - copiedUntil <= copiedUntil) + (copiedUntil) * ( size - copiedUntil > copiedUntil);
+		memcpy(nextBuffer + copiedUntil / sizeof(pixel), nextBuffer, copySize);
+		copiedUntil += copySize;
 	}
 }
 
