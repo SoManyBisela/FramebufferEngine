@@ -5,7 +5,7 @@
 
 class EngineTest : public Engine{
     protected:
-        virtual void draw(){
+        virtual void draw(float elapsedTime){
             MouseCoordinates m = getMousePosition();
             rect(m.x, m.y, 20, 20);
         }
