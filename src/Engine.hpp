@@ -9,7 +9,7 @@ class Engine : public FramebufferWriter, protected InputDeviceListener{
         bool shouldClose;
         bool updateGraphics;
     protected:
-        virtual void draw() = 0;
+        virtual void draw(float elapsedTime) = 0;
         void close(); //sets the closing flag
         void pause(); //processing noLoop();
         void play();  //processing loop();

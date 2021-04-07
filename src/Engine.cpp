@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <fcntl.h>
 #include <iostream>
+#include <chrono>
 
 //used for device loading
 static std::string exec(const char* cmd) {
@@ -67,10 +68,15 @@ Engine::~Engine(){
 }
 
 void Engine::start(){
+    auto t1 = std::chrono::system_clock::now();
+    auto t2 = t1;
     while(!shouldClose){
         updateState();
+        t2 = std::chrono::system_clock::now();
+        std::chrono::duration<float> duration = t2 - t1;
+        t1 = t2;
         if(updateGraphics)
-            draw();
+            draw(duration.count());
         applyBuffer();
     }
 }
